@@ -1,0 +1,5 @@
+.header__burger-line_active_pos_top {
+  transform-origin: left top;
+  transform: rotate(45deg);
+  width: 31px;
+}

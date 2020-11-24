@@ -1,0 +1,55 @@
+const express = require('express');
+const cors = require('cors')
+
+const app = express();
+const mongoose = require('mongoose');
+
+// const path = require('path');
+
+const { PORT = 4000 } = process.env;
+
+const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+const dbUrl = 'mongodb://localhost:27017/mestodb';
+const mongooseOptions = {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+};
+
+const router = require('./routes/router');
+
+mongoose.connect(dbUrl, mongooseOptions);
+
+app.use(cors());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(requestLogger);
+
+// app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+app.use('/', router);
+
+app.use(errorLogger);
+
+app.use(errors());
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+
+  res
+    .status(statusCode)
+    .send({
+      message: statusCode === 500
+        ? 'На сервере произошла ошибка'
+        : message,
+    });
+});
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});

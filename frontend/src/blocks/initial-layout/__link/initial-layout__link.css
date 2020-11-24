@@ -1,0 +1,13 @@
+.initial-layout__link {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: #fff;
+  transition: .4s;
+}
+
+.initial-layout__link:hover {
+  opacity: .6;
+}

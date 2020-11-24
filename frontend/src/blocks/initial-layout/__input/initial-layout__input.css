@@ -1,0 +1,23 @@
+.initial-layout__input {
+  width: 100%;
+  background-color: transparent;
+  padding: 0 0 13px;
+  /* margin-bottom: 13px; */
+  color: #fff;
+  outline-style: none;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  transition: .4s;
+}
+
+.initial-layout__input::placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ccc;
+}
+
+.initial-layout__input:focus {
+  border-bottom: 2px solid #fff;
+}

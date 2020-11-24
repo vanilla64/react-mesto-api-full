@@ -1,0 +1,6 @@
+.header__info_active {
+  transition: .3s;
+  position: static;
+  display: flex;
+  transform: translateY(0)
+}

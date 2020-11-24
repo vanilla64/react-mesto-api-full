@@ -1,0 +1,67 @@
+@import url('./__logo/header__logo.css');
+@import url('./__info/header__info.css');
+@import url('./__email/header__email.css');
+@import url('./__navlink/header__navlink.css');
+@import url('./__burger/header__burger.css');
+@import url('./__burger-line/header__burger-line.css');
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 73.5%;
+  padding: 45px 0 40px;
+  margin: 0 auto;
+  border-bottom: solid 1px rgb(84, 84, 84, .7);
+  position: relative;
+  transition: .3s;
+}
+
+.header_screen_initial {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0 auto;
+  padding: 40px 0 40px;
+  border-bottom: solid 1px rgb(84, 84, 84, .7);
+  position: relative;
+  transition: .3s;
+  width: 83%;
+}
+
+@media screen and (max-width: 768px) {
+  .header_screen_initial {
+    flex-direction: row-reverse;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header_screen_initial {
+    flex-direction: row-reverse;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1105px) {
+  .header {
+    width: 83%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    width: 90%;
+    position: relative;
+    flex-direction: column;
+    align-items: start;
+    padding: 40px 0 40px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    padding: 28px 0 31px;
+    width: 100%;
+  }
+}

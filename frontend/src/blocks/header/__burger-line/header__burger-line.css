@@ -1,0 +1,10 @@
+@import url('./_active/header__burger_active.css');
+@import url('./_active/header__burger-line_active_pos_top.css');
+@import url('./_active/header__burger-line_active_pos_middle.css');
+@import url('./_active/header__burger-line_active_pos_bottom.css');
+
+.header__burger-line {
+  width: 24px;
+  transition: .3s;
+  border-top: solid 3px rgba(255, 255, 255, 1);
+}

@@ -1,0 +1,14 @@
+.initial-layout__label {
+  margin: 0 0 30px;
+  width: 100%;
+  /* border-bottom: 2px solid #ccc; */
+  transition: .4s;
+}
+
+.initial-layout__label:last-child {
+  margin: 0;
+}
+
+.initial-layout__label:focus {
+  border-bottom: 2px solid #fff;
+}

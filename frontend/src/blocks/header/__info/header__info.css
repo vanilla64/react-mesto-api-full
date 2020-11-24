@@ -1,0 +1,22 @@
+@import url('./_active/header__info_active.css');
+
+.header__info {
+  display: flex;
+  transition: .3s;
+}
+
+@media screen and (max-width: 768px) {
+  .header__info {
+    /* display: none; */
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: solid 1px rgb(84, 84, 84, .7);
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(calc(-100% - 50px));
+    transition: .3s;
+  }
+}

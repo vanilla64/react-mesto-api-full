@@ -1,0 +1,6 @@
+@media screen and (max-width: 768px) {
+  .header__burger_active {
+    display: flex;
+    transform: translateY(102px);
+  }
+}
