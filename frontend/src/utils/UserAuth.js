@@ -61,7 +61,7 @@ class UserAuth {
 }
 
 // const auth = new UserAuth('http://localhost:4000')
-// const auth = new UserAuth('http://vanillaen.students.nomoreparties.xyz:4000')
-const auth = new UserAuth('http://84.201.172.179:4000')
+const auth = new UserAuth('https://api.vanillaen.students.nomoreparties.xyz')
+// const auth = new UserAuth('http://84.201.172.179:4000')
 
 export default auth;

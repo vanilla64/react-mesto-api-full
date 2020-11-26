@@ -1,9 +1,8 @@
 // import React from 'react'
 
 export class Api {
-  constructor({ url, token}) {
+  constructor({ url}) {
     this._url = url
-    this._token = token
   }
 
   getInitialCards(token) {
@@ -147,9 +146,8 @@ export class Api {
 
 const api = new Api({
   // url: 'https://mesto.nomoreparties.co/v1/cohort-14',
-  url: 'http://84.201.172.179:4000',
-  // url: 'http://vanillaen.students.nomoreparties.xyz:4000',
-  token: '3afbb2b4-9ecc-4aaa-9813-505ad2c004fc'
+  // url: 'http://84.201.172.179:4000',
+  url: 'https://api.vanillaen.students.nomoreparties.xyz'
 })
 
 export default api
