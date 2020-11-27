@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const { currentUservalidator } = require('../utils/celebrate');
+// const { currentUservalidator } = require('../utils/celebrate');
 
 const {
-  getUsers, getUser, getCurrentUser, updateUser, updateAvatar
+  getUsers, getUser, getCurrentUser, updateUser, updateAvatar,
 } = require('../controllers/users');
 
 router.get('/users', getUsers);

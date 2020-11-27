@@ -1,7 +1,7 @@
 // import React from 'react'
 
 export class Api {
-  constructor({ url}) {
+  constructor({ url }) {
     this._url = url
   }
 
@@ -145,8 +145,7 @@ export class Api {
 }
 
 const api = new Api({
-  // url: 'https://mesto.nomoreparties.co/v1/cohort-14',
-  // url: 'http://84.201.172.179:4000',
+  // url: 'http://localhost:4000',
   url: 'https://api.vanillaen.students.nomoreparties.xyz'
 })
 

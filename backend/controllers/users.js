@@ -2,48 +2,42 @@ const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 
-const { SECRET_KEY } = require('../config/config');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const User = require('../models/user');
 
-module.exports.getUsers = async (req, res) => {
+const BadRequestError = require('../errors/BadRequestError');
+const AuthError = require('../errors/AuthError');
+const NotFoundError = require('../errors/NotFoundError');
+
+module.exports.getUsers = async (req, res, next) => {
   try {
     const users = await User.find({});
 
     res.send(users);
   } catch (err) {
-    console.log(`ERROR: ${err.name}`);
-    console.log(`ERROR: ${err.message}`);
-
-    res
-      .status(500)
-      .send({ message: 'Ошибка на сервере' });
+    next(err);
   }
 };
 
-module.exports.getUser = async (req, res) => {
+module.exports.getUser = async (req, res, next) => {
   const { _id } = req.params;
 
   try {
     const user = await User.findById(_id);
 
     if (!user) {
-      res.status(404).send({ message: `Пользователь с id: ${_id} не найден!` });
-      return;
+      throw new NotFoundError(`Пользователь с id: ${_id} не найден!`);
     }
 
     res.send(user);
   } catch (err) {
-    console.log(`ERROR: ${err.name}`);
-    console.log(`ERROR: ${err.message}`);
-
     if (err.name === 'CastError') {
-      res.status(404).send({ message: `Пользователь с id: ${_id} не найден!` });
-      console.log(`ERROR: ${err.message}`);
+      next(new NotFoundError(`Пользователь с id: ${_id} не найден!`));
       return;
     }
 
-    res.status(500).send({ message: 'Ошибка на сервере' });
+    next(err);
   }
 };
 
@@ -60,13 +54,15 @@ module.exports.updateUser = async (req, res, next) => {
       req.user._id,
       { name, about },
     );
-    res.send(user)
+    res.send(user);
   } catch (err) {
     next(err);
   }
 };
 
 module.exports.updateAvatar = async (req, res, next) => {
+  const { _id } = req.params;
+
   try {
     const { avatar } = req.body;
 
@@ -75,13 +71,18 @@ module.exports.updateAvatar = async (req, res, next) => {
       { avatar },
     );
 
-    res.send(user)
+    res.send(user);
   } catch (err) {
+    if (err.name === 'CastError') {
+      next(new NotFoundError(`Пользователь с id: ${_id} не найден!`));
+      return;
+    }
+
     next(err);
   }
 };
 
-module.exports.createUser = async (req, res) => {
+module.exports.createUser = async (req, res, next) => {
   try {
     const {
       name, about, avatar, email, password,
@@ -90,10 +91,7 @@ module.exports.createUser = async (req, res) => {
     const existedEmail = await User.findOne({ email });
 
     if (existedEmail) {
-      res
-        .status(401)
-        .send({ message: 'Email уже зарегистрирован!' });
-      return;
+      throw new AuthError('Email уже зарегистрирован!');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -106,47 +104,34 @@ module.exports.createUser = async (req, res) => {
 
     res.status(200).send(user);
   } catch (err) {
-    console.log(`ERROR: ${err.name}`);
-    console.log(`ERROR: ${err.message}`);
-
     if (err.name === 'ValidationError') {
-      res
-        .status(400)
-        .send({ message: 'Введены некорректные данные!' });
+      next(new BadRequestError('Введены некорректные данные!'));
       return;
     }
 
-    res
-      .status(500)
-      .send({ message: 'Ошибка на сервере' });
+    next(err);
   }
 };
 
-module.exports.login = async (req, res) => {
+module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
-      res
-        .status(401)
-        .send({ message: 'Неправильные почта или пароль' });
-      return;
+      throw new AuthError('Неправильные почта или пароль');
     }
 
     const matchedPassword = await bcrypt.compare(password, user.password);
 
     if (!matchedPassword) {
-      res
-        .status(401)
-        .send({ message: 'Неправильные почта или пароль' });
-      return;
+      throw new AuthError('Неправильные почта или пароль');
     }
 
     const token = jwt.sign(
       { _id: user._id },
-      SECRET_KEY,
+      NODE_ENV === 'production' ? JWT_SECRET : 'dick-cunt-pan',
       { expiresIn: '7d' },
     );
     res.send({
@@ -154,11 +139,6 @@ module.exports.login = async (req, res) => {
       token,
     });
   } catch (err) {
-    console.log(`ERROR: ${err.name}`);
-    console.log(`ERROR: ${err.message}`);
-
-    res
-      .status(401)
-      .send({ message: err.message });
+    next(new AuthError(err.message));
   }
 };

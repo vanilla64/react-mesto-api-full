@@ -1,10 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 const mongoose = require('mongoose');
-
-// const path = require('path');
 
 const { PORT = 4000 } = process.env;
 
@@ -30,8 +30,6 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-// app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
-
 app.use('/', router);
 
 app.use(errorLogger);
@@ -41,6 +39,9 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
+  console.log(`ERROR: ${err.name}`);
+  console.log(`ERROR: ${err.message}`);
+
   res
     .status(statusCode)
     .send({
@@ -48,6 +49,8 @@ app.use((err, req, res, next) => {
         ? 'На сервере произошла ошибка'
         : message,
     });
+
+  next();
 });
 
 app.listen(PORT, () => {

@@ -10,6 +10,12 @@ const routerUsers = require('./users');
 
 const { sendNotFoundErr } = require('../utils/utils');
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 router.post('/signup', bodyUserValidator, createUser);
 router.post('/signin', bodyUserValidator, login);
 
