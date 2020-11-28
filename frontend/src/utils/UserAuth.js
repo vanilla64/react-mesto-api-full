@@ -1,3 +1,5 @@
+const { NODE_ENV } = process.env;
+
 class UserAuth {
   constructor(url) {
     this._url = url
@@ -60,7 +62,8 @@ class UserAuth {
 
 }
 
-// const auth = new UserAuth('http://localhost:4000')
-const auth = new UserAuth('https://api.vanillaen.students.nomoreparties.xyz')
+const auth = new UserAuth(NODE_ENV === 'production' ?
+'https://api.vanillaen.students.nomoreparties.xyz' :
+'http://localhost:4000')
 
 export default auth;

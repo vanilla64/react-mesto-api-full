@@ -14,7 +14,11 @@ module.exports.auth = (req, res, next) => {
 
   try {
     const token = authorization.replace('Bearer ', '');
-    const payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dick-cunt-pan');
+    const payload = jwt.verify(
+      token,
+      NODE_ENV === 'production'
+        ? JWT_SECRET : 'dick-cunt-pan',
+    );
 
     req.user = payload;
   } catch (err) {

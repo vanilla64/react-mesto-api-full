@@ -131,7 +131,8 @@ module.exports.login = async (req, res, next) => {
 
     const token = jwt.sign(
       { _id: user._id },
-      NODE_ENV === 'production' ? JWT_SECRET : 'dick-cunt-pan',
+      NODE_ENV === 'production'
+        ? JWT_SECRET : 'dick-cunt-pan',
       { expiresIn: '7d' },
     );
     res.send({

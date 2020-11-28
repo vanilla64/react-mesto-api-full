@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { bodyUserValidator } = require('../utils/celebrate');
+const { loginValidator, registerValidator } = require('../utils/celebrate');
 const { createUser, login } = require('../controllers/users');
 
 const { auth } = require('../middlewares/auth');
@@ -16,8 +16,8 @@ router.get('/crash-test', () => {
   }, 0);
 });
 
-router.post('/signup', bodyUserValidator, createUser);
-router.post('/signin', bodyUserValidator, login);
+router.post('/signup', registerValidator, createUser);
+router.post('/signin', loginValidator, login);
 
 router.use(auth);
 

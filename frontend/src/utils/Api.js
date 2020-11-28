@@ -1,4 +1,4 @@
-// import React from 'react'
+const { NODE_ENV } = process.env;
 
 export class Api {
   constructor({ url }) {
@@ -145,8 +145,9 @@ export class Api {
 }
 
 const api = new Api({
-  // url: 'http://localhost:4000',
-  url: 'https://api.vanillaen.students.nomoreparties.xyz'
+  url: NODE_ENV === 'production' ?
+  'https://api.vanillaen.students.nomoreparties.xyz' :
+  'http://localhost:4000',
 })
 
 export default api
