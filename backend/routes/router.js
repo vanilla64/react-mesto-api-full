@@ -24,9 +24,6 @@ router.use(auth);
 router.use(routerCards);
 router.use(routerUsers);
 
-router.get('/', sendNotFoundErr);
-router.post('/', sendNotFoundErr);
-router.get('/:url', sendNotFoundErr);
-router.post('/:url', sendNotFoundErr);
+router.use('*', sendNotFoundErr);
 
 module.exports = router;

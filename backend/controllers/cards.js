@@ -82,11 +82,11 @@ module.exports.deleteCard = async (req, res, next) => {
 };
 
 module.exports.setLike = async (req, res, next) => {
-  const { _id } = req.params;
+  const { cardId } = req.params;
 
   try {
     const user = await User.findById(req.user._id);
-    const card = await Card.findById(_id).populate(['likes', 'owner']);
+    const card = await Card.findById(cardId).populate(['likes', 'owner']);
 
     const isLiked = await card.likes.find(
       (item) => item._id.toString() === req.user._id,
@@ -97,17 +97,17 @@ module.exports.setLike = async (req, res, next) => {
     }
 
     await Card.findByIdAndUpdate(
-      _id,
+      cardId,
       { $push: { likes: user } },
     ).populate(['likes', 'owner']);
 
     const updatedCard = await
-    Card.findById(_id).populate(['likes', 'owner']);
+    Card.findById(cardId).populate(['likes', 'owner']);
 
     res.send(updatedCard);
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new NotFoundError(`Карточка с id: ${_id} не найдена!`));
+      next(new NotFoundError(`Карточка с id: ${cardId} не найдена!`));
       return;
     }
     next(err);
@@ -115,11 +115,11 @@ module.exports.setLike = async (req, res, next) => {
 };
 
 module.exports.deleteLike = async (req, res, next) => {
-  const { _id } = req.params;
+  const { cardId } = req.params;
 
   try {
     const user = await User.findById(req.user._id);
-    const card = await Card.findById(_id).populate(['likes', 'owner']);
+    const card = await Card.findById(cardId).populate(['likes', 'owner']);
 
     const isLiked = card.likes.some(
       (item) => item._id.toString() === req.user._id,
@@ -130,17 +130,17 @@ module.exports.deleteLike = async (req, res, next) => {
     }
 
     await Card.findByIdAndUpdate(
-      _id,
+      cardId,
       { $pull: { likes: user._id } },
     ).populate(['likes', 'owner']);
 
     const updatedCard = await
-    Card.findById(_id).populate(['likes', 'owner']);
+    Card.findById(cardId).populate(['likes', 'owner']);
 
     res.send(updatedCard);
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new NotFoundError(`Карточка с id: ${_id} не найдена!`));
+      next(new NotFoundError(`Карточка с id: ${cardId} не найдена!`));
       return;
     }
     next(err);

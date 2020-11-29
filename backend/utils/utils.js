@@ -1,5 +1,9 @@
-const linkRegexp = /^(https?):\/\/(w{3}\.)?[^#\s]+\.\w+\/?([^#\s]+)?[#]?$/i;
+const NotFoundError = require('../errors/NotFoundError');
 
-const sendNotFoundErr = (req, res) => res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+const linkRegexp = /^(https?):\/\/(w{3}\.)?[^#~!@$%^&*)(\s]+\.\w+\/?([^#~!@$%^&*)(\s]+)?[#]?$/i;
+
+const sendNotFoundErr = () => {
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
+};
 
 module.exports = { linkRegexp, sendNotFoundErr };

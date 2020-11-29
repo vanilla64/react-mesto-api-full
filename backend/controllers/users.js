@@ -9,6 +9,7 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const AuthError = require('../errors/AuthError');
 const NotFoundError = require('../errors/NotFoundError');
+const ConflictError = require('../errors/ConflictError');
 
 module.exports.getUsers = async (req, res, next) => {
   try {
@@ -91,7 +92,7 @@ module.exports.createUser = async (req, res, next) => {
     const existedEmail = await User.findOne({ email });
 
     if (existedEmail) {
-      throw new AuthError('Email уже зарегистрирован!');
+      throw new ConflictError('Email уже зарегистрирован!');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -102,7 +103,7 @@ module.exports.createUser = async (req, res, next) => {
       },
     );
 
-    res.status(200).send(user);
+    res.status(200).send({ _id: user._id, email: user.email });
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError('Введены некорректные данные!'));
