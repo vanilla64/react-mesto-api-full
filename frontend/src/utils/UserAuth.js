@@ -62,8 +62,10 @@ class UserAuth {
 
 }
 
-const auth = new UserAuth(NODE_ENV === 'production' ?
-'https://api.vanillaen.students.nomoreparties.xyz' :
-'http://localhost:4000')
+const auth = new UserAuth(
+  NODE_ENV === 'production'
+    ? 'https://api.mestophoto.site'
+    : 'http://localhost:4000'
+)
 
 export default auth;

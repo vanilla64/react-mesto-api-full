@@ -1,7 +1,7 @@
 # Mesto учебный проект
 
-### [api сервера](https://api.vanillaen.students.nomoreparties.xyz)
+### [api сервера](https://api.https://mestophoto.site)
 
-### [Сыылка на публичный домен](https://vanillaen.students.nomoreparties.xyz)
+### [Ссылка на публичный домен](https://mestophoto.site)
 
 ##### Сергей Машин [VK](https://vk.com/vanilla64)

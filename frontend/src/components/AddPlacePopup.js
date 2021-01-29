@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm'
 function AddPlacePopup(props) {
   const [location, setLocation] = React.useState('')
   const [link, setLink] = React.useState('')
-  
+
   function handleChangeLocation(evt) {
     setLocation(evt.target.value)
   }
@@ -37,25 +37,28 @@ function AddPlacePopup(props) {
     >
       <>
         <label className="popup__label">
-          <input 
-            id="location-input" 
+          <input
+            id="location-input"
             value={location ? location : ''}
             onChange={handleChangeLocation}
-            name="location" 
+            name="location"
             className="popup__input popup__input_text_location"
             type="text"
             placeholder="Название"
             required
             minLength="2"
             maxLength="30" />
-          <span id="location-input-error" className="popup__error"></span>
+            {/* {
+              !isValid.location && <span id="location-input-error" className="popup__error"></span>
+            } */}
+
         </label>
         <label className="popup__label">
-          <input 
-            id="link-input" 
+          <input
+            id="link-input"
             value={link ? link : ''}
             onChange={handleChangeLink}
-            name="link" 
+            name="link"
             className="popup__input popup__input_text_link"
             type="url"
             placeholder="Ссылка на картинку"

@@ -28,7 +28,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [cards, setCards] = React.useState([])
 
-  const [loggedIn, setLoggedIn] = React.useState(false)
+  const [loggedIn, setLoggedIn] = React.useState(true)
   const [isRegistered, setIsRegistered] = React.useState(false)
   const [isInitialScreen, setinitialScreen] = React.useState(true)
 

@@ -145,9 +145,9 @@ export class Api {
 }
 
 const api = new Api({
-  url: NODE_ENV === 'production' ?
-  'https://api.vanillaen.students.nomoreparties.xyz' :
-  'http://localhost:4000',
+  url: NODE_ENV === 'production'
+    ? 'https://api.mestophoto.site'
+    : 'http://localhost:4000',
 })
 
 export default api
